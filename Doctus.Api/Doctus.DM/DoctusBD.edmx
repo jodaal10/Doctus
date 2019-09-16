@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Doctus_BDHorasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Actividades">
+          <Key>
+            <PropertyRef Name="IdActividad" />
+          </Key>
+          <Property Name="IdActividad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Tiempos">
+          <Key>
+            <PropertyRef Name="IdTiempo" />
+          </Key>
+          <Property Name="IdTiempo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdActividad" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Tiempo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tbl_Actividades_tbl_Usuarios">
+          <End Role="tbl_Usuarios" Type="Self.tbl_Usuarios" Multiplicity="1" />
+          <End Role="tbl_Actividades" Type="Self.tbl_Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="tbl_Actividades">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Tiempos_tbl_Actividades">
+          <End Role="tbl_Actividades" Type="Self.tbl_Actividades" Multiplicity="1" />
+          <End Role="tbl_Tiempos" Type="Self.tbl_Tiempos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Actividades">
+              <PropertyRef Name="IdActividad" />
+            </Principal>
+            <Dependent Role="tbl_Tiempos">
+              <PropertyRef Name="IdActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_CrearActivades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IN_IdUsuario" Type="int" Mode="In" />
+          <Parameter Name="IN_Descripcion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_CrearTiempos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IN_IdActividad" Type="int" Mode="In" />
+          <Parameter Name="IN_Fecha" Type="varchar" Mode="In" />
+          <Parameter Name="IN_Tiempo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_EliminarActividad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IN_IdActividad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_EliminarTiempo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IN_IdTiempo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ListarActivades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IN_IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ListarTiempos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IN_IdActividad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ValidarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IN_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="IN_Clave" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Doctus_BDHorasModelStoreContainer">
+          <EntitySet Name="tbl_Actividades" EntityType="Self.tbl_Actividades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Tiempos" EntityType="Self.tbl_Tiempos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Usuarios" EntityType="Self.tbl_Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_Actividades_tbl_Usuarios" Association="Self.FK_tbl_Actividades_tbl_Usuarios">
+            <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
+            <End Role="tbl_Actividades" EntitySet="tbl_Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Tiempos_tbl_Actividades" Association="Self.FK_tbl_Tiempos_tbl_Actividades">
+            <End Role="tbl_Actividades" EntitySet="tbl_Actividades" />
+            <End Role="tbl_Tiempos" EntitySet="tbl_Tiempos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Doctus_BDHorasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Actividades">
+          <Key>
+            <PropertyRef Name="IdActividad" />
+          </Key>
+          <Property Name="IdActividad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Usuarios" Relationship="Self.FK_tbl_Actividades_tbl_Usuarios" FromRole="tbl_Actividades" ToRole="tbl_Usuarios" />
+          <NavigationProperty Name="tbl_Tiempos" Relationship="Self.FK_tbl_Tiempos_tbl_Actividades" FromRole="tbl_Actividades" ToRole="tbl_Tiempos" />
+        </EntityType>
+        <EntityType Name="tbl_Tiempos">
+          <Key>
+            <PropertyRef Name="IdTiempo" />
+          </Key>
+          <Property Name="IdTiempo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdActividad" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Tiempo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Actividades" Relationship="Self.FK_tbl_Tiempos_tbl_Actividades" FromRole="tbl_Tiempos" ToRole="tbl_Actividades" />
+        </EntityType>
+        <EntityType Name="tbl_Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Actividades" Relationship="Self.FK_tbl_Actividades_tbl_Usuarios" FromRole="tbl_Usuarios" ToRole="tbl_Actividades" />
+        </EntityType>
+        <Association Name="FK_tbl_Actividades_tbl_Usuarios">
+          <End Role="tbl_Usuarios" Type="Self.tbl_Usuarios" Multiplicity="1" />
+          <End Role="tbl_Actividades" Type="Self.tbl_Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="tbl_Actividades">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Tiempos_tbl_Actividades">
+          <End Role="tbl_Actividades" Type="Self.tbl_Actividades" Multiplicity="1" />
+          <End Role="tbl_Tiempos" Type="Self.tbl_Tiempos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Actividades">
+              <PropertyRef Name="IdActividad" />
+            </Principal>
+            <Dependent Role="tbl_Tiempos">
+              <PropertyRef Name="IdActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Doctus_BDHorasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Actividades" EntityType="Self.tbl_Actividades" />
+          <EntitySet Name="tbl_Tiempos" EntityType="Self.tbl_Tiempos" />
+          <EntitySet Name="tbl_Usuarios" EntityType="Self.tbl_Usuarios" />
+          <AssociationSet Name="FK_tbl_Actividades_tbl_Usuarios" Association="Self.FK_tbl_Actividades_tbl_Usuarios">
+            <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
+            <End Role="tbl_Actividades" EntitySet="tbl_Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Tiempos_tbl_Actividades" Association="Self.FK_tbl_Tiempos_tbl_Actividades">
+            <End Role="tbl_Actividades" EntitySet="tbl_Actividades" />
+            <End Role="tbl_Tiempos" EntitySet="tbl_Tiempos" />
+          </AssociationSet>
+          <FunctionImport Name="sp_CrearActivades">
+            <Parameter Name="IN_IdUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="IN_Descripcion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CrearTiempos">
+            <Parameter Name="IN_IdActividad" Mode="In" Type="Int32" />
+            <Parameter Name="IN_Fecha" Mode="In" Type="String" />
+            <Parameter Name="IN_Tiempo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarActividad">
+            <Parameter Name="IN_IdActividad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarTiempo">
+            <Parameter Name="IN_IdTiempo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ListarActivades" ReturnType="Collection(Doctus_BDHorasModel.sp_ListarActivades_Result)">
+            <Parameter Name="IN_IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ListarTiempos" ReturnType="Collection(Doctus_BDHorasModel.sp_ListarTiempos_Result)">
+            <Parameter Name="IN_IdActividad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ValidarUsuario" ReturnType="Collection(Int32)">
+            <Parameter Name="IN_Usuario" Mode="In" Type="String" />
+            <Parameter Name="IN_Clave" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_ListarActivades_Result">
+          <Property Type="Int32" Name="IdActividad" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarTiempos_Result">
+          <Property Type="Int32" Name="IdTiempo" Nullable="false" />
+          <Property Type="Int32" Name="IdActividad" Nullable="false" />
+          <Property Type="String" Name="Fecha" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Tiempo" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Doctus_BDHorasModelStoreContainer" CdmEntityContainer="Doctus_BDHorasEntities">
+          <EntitySetMapping Name="tbl_Actividades">
+            <EntityTypeMapping TypeName="Doctus_BDHorasModel.tbl_Actividades">
+              <MappingFragment StoreEntitySet="tbl_Actividades">
+                <ScalarProperty Name="IdActividad" ColumnName="IdActividad" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Tiempos">
+            <EntityTypeMapping TypeName="Doctus_BDHorasModel.tbl_Tiempos">
+              <MappingFragment StoreEntitySet="tbl_Tiempos">
+                <ScalarProperty Name="IdTiempo" ColumnName="IdTiempo" />
+                <ScalarProperty Name="IdActividad" ColumnName="IdActividad" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Usuarios">
+            <EntityTypeMapping TypeName="Doctus_BDHorasModel.tbl_Usuarios">
+              <MappingFragment StoreEntitySet="tbl_Usuarios">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_CrearActivades" FunctionName="Doctus_BDHorasModel.Store.sp_CrearActivades" />
+          <FunctionImportMapping FunctionImportName="sp_CrearTiempos" FunctionName="Doctus_BDHorasModel.Store.sp_CrearTiempos" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarActividad" FunctionName="Doctus_BDHorasModel.Store.sp_EliminarActividad" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarTiempo" FunctionName="Doctus_BDHorasModel.Store.sp_EliminarTiempo" />
+          <FunctionImportMapping FunctionImportName="sp_ListarActivades" FunctionName="Doctus_BDHorasModel.Store.sp_ListarActivades">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Doctus_BDHorasModel.sp_ListarActivades_Result">
+                <ScalarProperty Name="IdActividad" ColumnName="IdActividad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarTiempos" FunctionName="Doctus_BDHorasModel.Store.sp_ListarTiempos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Doctus_BDHorasModel.sp_ListarTiempos_Result">
+                <ScalarProperty Name="IdTiempo" ColumnName="IdTiempo" />
+                <ScalarProperty Name="IdActividad" ColumnName="IdActividad" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ValidarUsuario" FunctionName="Doctus_BDHorasModel.Store.sp_ValidarUsuario" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
