@@ -50,7 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actividad\ActividadRepository.cs" />
     <Compile Include="Actividad\DMActividad.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
     <Compile Include="Usuario\DMUsuario.cs" />
     <Compile Include="DoctusBD.Context.cs">
       <AutoGen>True</AutoGen>
@@ -63,6 +66,7 @@
       <DependentUpon>DoctusBD.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuario\UsuarioRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DoctusBD.edmx">
@@ -94,5 +98,6 @@
       <Name>Doctus.DT</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
