@@ -10,7 +10,7 @@
     using Doctus.BM;
     using DoctusDT;
 
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class TiempoController : ApiController
     {
         private IBMTiempo ObjTiempo;
@@ -24,6 +24,8 @@
         /// Metodo para registrar los tiempos de una actividad
         /// </summary>
         /// <param name="objTiempo"></param>
+        [HttpPost]
+        [Authorize]
         public int CrearTiempo(tbl_Tiempos objTiempo)
         {
             try
@@ -43,6 +45,7 @@
         /// <param name="idActivity"></param>
         /// <returns>List<tbl_Tiempos></returns>
         [HttpGet]
+        [Authorize]
         public List<tbl_Tiempos> ListarTempos(int idActivity)
         {
             try
@@ -60,6 +63,7 @@
         /// </summary>
         /// <param name="idTiempo"></param>
         [HttpGet]
+        [Authorize]
         public bool EliminarTiempo(int idTiempo)
         {
             try

@@ -10,12 +10,13 @@ using Doctus.BM.Usuario;
 using Doctus.BM.Actividad;
 using Doctus.DM.Actividad;
 using Doctus.DM.Tiempo;
+using Doctus.Api.Providers;
 
 namespace Doctus.Api
 {
     public static class UnityConfig
     {
-        public static void RegisterComponents()
+        public static IUnityContainer GetConfiguredContainer()
         {
 			var container = new UnityContainer();
 
@@ -33,7 +34,8 @@ namespace Doctus.Api
             container.RegisterType<ITiempoRepository, TiempoRepository>();
             container.RegisterType<IBMTiempo, BMTiempo>();
 
-            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+            return container;
+            //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 }

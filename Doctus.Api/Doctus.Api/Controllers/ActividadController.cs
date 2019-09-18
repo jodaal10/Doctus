@@ -16,7 +16,7 @@ namespace Doctus.Api.Controllers
     using BM.Actividad;
     using DoctusDT;
 
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ActividadController : ApiController
     {
         private IBMActividad ObjActividad;
@@ -31,6 +31,7 @@ namespace Doctus.Api.Controllers
         /// <param name="idUsuario"></param>
         /// <returns>List<tbl_Actividades></returns>
         [HttpGet]
+        [Authorize]
         public List<tbl_Actividades> ListarActividades(int idUsuario)
         {
             try
@@ -47,6 +48,8 @@ namespace Doctus.Api.Controllers
         /// Metodo para crear actividades para un usuario
         /// </summary>
         /// <param name="objActivity"></param>
+        [HttpPost]
+        [Authorize]
         public bool CrearActividad(tbl_Actividades objActivity)
         {
             try
@@ -65,6 +68,7 @@ namespace Doctus.Api.Controllers
         /// </summary>
         /// <param name="idActivity"></param>
         [HttpGet]
+        [Authorize]
         public bool EliminarActividad(int idActivity)
         {
             try

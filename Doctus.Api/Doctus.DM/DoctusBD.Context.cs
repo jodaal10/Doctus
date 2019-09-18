@@ -25,9 +25,7 @@ namespace DoctusDT
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            //throw new UnintentionalCodeFirstException();
+            throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<tbl_Actividades> tbl_Actividades { get; set; }

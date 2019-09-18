@@ -16,11 +16,11 @@ namespace Doctus.Api.Controllers
     using DoctusDT;
     
 
-    [EnableCors(origins:"http://localhost:4200",headers:"*",methods:"*")]
+    //[EnableCors(origins:"http://localhost:4200",headers:"*",methods:"*")]
     public class UsuarioController : ApiController
     {
         protected IBMUsuario ObjBM;
-
+       
         public UsuarioController(IBMUsuario Usuario) {
             ObjBM = Usuario;
         }
@@ -29,6 +29,8 @@ namespace Doctus.Api.Controllers
         /// </summary>
         /// <param name="objUsuario"></param>
         /// <returns>bool</returns>
+        [AllowAnonymous]
+        [HttpPost]
         public tbl_Usuarios ValidarUsuario(tbl_Usuarios objusuario)
         {
             try
