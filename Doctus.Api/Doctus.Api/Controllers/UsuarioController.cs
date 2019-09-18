@@ -15,8 +15,7 @@ namespace Doctus.Api.Controllers
     using BM.Usuario;
     using DoctusDT;
     
-
-    //[EnableCors(origins:"http://localhost:4200",headers:"*",methods:"*")]
+    
     public class UsuarioController : ApiController
     {
         protected IBMUsuario ObjBM;

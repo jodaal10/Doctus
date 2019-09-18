@@ -9,8 +9,7 @@
     using System.Web.Http.Cors;
     using Doctus.BM;
     using DoctusDT;
-
-    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    
     public class TiempoController : ApiController
     {
         private IBMTiempo ObjTiempo;

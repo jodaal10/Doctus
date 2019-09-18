@@ -15,8 +15,7 @@ namespace Doctus.Api.Controllers
     using System.Web.Http.Cors;
     using BM.Actividad;
     using DoctusDT;
-
-    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    
     public class ActividadController : ApiController
     {
         private IBMActividad ObjActividad;
