@@ -16,50 +16,43 @@ namespace Doctus.BM.Usuario
     using Doctus.DM.Repository;
     using Doctus.DM.Usuario;
 
-    public class BMUsuario
+    public interface IBMUsuario
     {
-        DMUsuario Usuario = new DMUsuario();
+        tbl_Usuarios ValidarUsuario(tbl_Usuarios objUsuario);
+    }
+
+
+    public class BMUsuario : IBMUsuario
+    {
+        private IUsuarioRepository ObjUsuarioRepository;
+
+        public BMUsuario(IUsuarioRepository InitialUserRepository)
+        {
+            ObjUsuarioRepository = InitialUserRepository;
+        }
+
         /// <summary>
         /// Validar si el acceso que proporciona el usuario es correcto
         /// </summary>
         /// <param name="objUsuario"></param>
-        /// <returns>bool</returns>
-        //public tbl_Usuarios ValidarUsuario(tbl_Usuarios objUsuario)
-        //{
-        //    try
-        //    {
-        //        return Usuario.ValidarUsuario(objUsuario);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //}
+        /// <returns>tbl_Usuarios</returns>
         public tbl_Usuarios ValidarUsuario(tbl_Usuarios objUsuario)
         {
             try
             {
-          
-                using (Doctus_BDHorasEntities Db = new Doctus_BDHorasEntities())
+                tbl_Usuarios User = new tbl_Usuarios();
+                var Buscar = ObjUsuarioRepository.GetAllBy(i => i.Usuario == objUsuario.Usuario && i.Clave == objUsuario.Clave).FirstOrDefault();
+                if (Buscar != null)
                 {
-                    var objUsuarioRepository = new Repository<tbl_Usuarios>(Db);
-                    tbl_Usuarios User = new tbl_Usuarios();
-                    var Buscar = objUsuarioRepository.GetAllBy(i => i.Usuario == objUsuario.Usuario && i.Clave == objUsuario.Clave).FirstOrDefault();
-                    if (Buscar != null)
-                    {
-                        User.IdUsuario = Buscar.IdUsuario;
-                        User.Usuario = Buscar.Usuario;
-                        User.Clave = Buscar.Clave;
-                        return User;
-                    }
-                    else
-                    {
-                        return Buscar;
-                    }
+                    User.IdUsuario = Buscar.IdUsuario;
+                    User.Usuario = Buscar.Usuario;
+                    User.Clave = Buscar.Clave;
+                    return User;
                 }
-
-               // var obj =  objUsuarioRepository.GetAllBy(i => i.Usuario == objUsuario.Usuario && i.Clave == objUsuario.Clave).FirstOrDefault();
-               
+                else
+                {
+                    return Buscar;
+                }
             }
             catch (Exception ex)
             {

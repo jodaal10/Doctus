@@ -19,16 +19,21 @@ namespace Doctus.Api.Controllers
     [EnableCors(origins:"http://localhost:4200",headers:"*",methods:"*")]
     public class UsuarioController : ApiController
     {
-        BMUsuario Usuario = new BMUsuario();
+        protected IBMUsuario ObjBM;
+
+        public UsuarioController(IBMUsuario Usuario) {
+            ObjBM = Usuario;
+        }
         /// <summary>
         /// Validar si el acceso que proporciona el usuario es correcto
         /// </summary>
         /// <param name="objUsuario"></param>
         /// <returns>bool</returns>
-        public tbl_Usuarios ValidarUsuario(tbl_Usuarios objusuario) {
+        public tbl_Usuarios ValidarUsuario(tbl_Usuarios objusuario)
+        {
             try
             {
-                return Usuario.ValidarUsuario(objusuario);
+                return ObjBM.ValidarUsuario(objusuario);
             }
             catch (Exception)
             {

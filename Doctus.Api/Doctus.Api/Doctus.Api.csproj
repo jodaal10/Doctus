@@ -58,6 +58,9 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -120,6 +123,15 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net46\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.WebApi, Version=5.4.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.WebAPI.5.4.0\lib\net45\Unity.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -138,6 +150,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -263,6 +276,10 @@
     <ProjectReference Include="..\Doctus.BM\Doctus.BM.csproj">
       <Project>{613d19c3-a520-4fb6-b964-fd7f0f1a5929}</Project>
       <Name>Doctus.BM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Doctus.DM\Doctus.DM.csproj">
+      <Project>{3215e6bb-018e-4b05-bc1e-882c4627fd88}</Project>
+      <Name>Doctus.DM</Name>
     </ProjectReference>
     <ProjectReference Include="..\DoctusDT\Doctus.DT.csproj">
       <Project>{00fa1a46-8a88-43d7-a9fd-1c71db6f49cc}</Project>
