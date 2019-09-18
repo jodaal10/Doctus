@@ -19,7 +19,12 @@ namespace Doctus.Api.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ActividadController : ApiController
     {
-        BMActividad ObjActividad = new BMActividad();
+        private IBMActividad ObjActividad;
+
+        public ActividadController(IBMActividad Actividad) {
+            ObjActividad = Actividad;
+        }
+
         /// <summary>
         /// listar las actividades correspondientes a un usuario
         /// </summary>
@@ -47,58 +52,6 @@ namespace Doctus.Api.Controllers
             try
             {
                 ObjActividad.CrearActividad(objActivity);
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Metodo para registrar los tiempos de una actividad
-        /// </summary>
-        /// <param name="objTiempo"></param>
-        public int CrearTiempo(tbl_Tiempos objTiempo)
-        {
-            try
-            {
-                return ObjActividad.CrearTiempo(objTiempo);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// listar los tiempos correspondientes a una actividad
-        /// </summary>
-        /// <param name="idActivity"></param>
-        /// <returns>List<tbl_Tiempos></returns>
-        [HttpGet]
-        public List<tbl_Tiempos> ListarTempos(int idActivity)
-        {
-            try
-            {
-                return ObjActividad.ListarTempos(idActivity);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Metodo para eliminar un tiempo
-        /// </summary>
-        /// <param name="idTiempo"></param>
-        [HttpGet]
-        public bool EliminarTiempo(int idTiempo)
-        {
-            try
-            {
-                ObjActividad.EliminarTiempo(idTiempo);
                 return true;
             }
             catch (Exception)

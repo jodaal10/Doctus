@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Actividad\ActividadRepository.cs" />
     <Compile Include="Actividad\DMActividad.cs" />
+    <Compile Include="Tiempo\TiempoRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Usuario\DMUsuario.cs" />

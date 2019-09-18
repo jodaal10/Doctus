@@ -14,7 +14,8 @@ namespace DoctusDT
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+    using System.Data.Entity.ModelConfiguration.Conventions;
+
     public partial class Doctus_BDHorasEntities : DbContext
     {
         public Doctus_BDHorasEntities()
@@ -24,7 +25,9 @@ namespace DoctusDT
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            //throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<tbl_Actividades> tbl_Actividades { get; set; }

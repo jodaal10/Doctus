@@ -13,9 +13,21 @@ namespace Doctus.BM.Actividad
     using Doctus.DM.Actividad;
     using DoctusDT;
 
-    public class BMActividad
+    public interface IBMActividad
     {
-        DMActividad Actividad = new DMActividad();
+        List<tbl_Actividades> ListarActividades(int idUsuario);
+        bool CrearActividad(tbl_Actividades objActivity);
+        bool EliminarActividad(int idActivity);
+    }
+
+
+    public class BMActividad : IBMActividad
+    {
+        private IActividadRepository ObjActividadRepository;
+        public BMActividad(IActividadRepository actividadRepository)
+        {
+            ObjActividadRepository = actividadRepository;
+        }
 
         /// <summary>
         /// listar las actividades correspondientes a un usuario
@@ -26,7 +38,27 @@ namespace Doctus.BM.Actividad
         {
             try
             {
-                return Actividad.ListarActividades(idUsuario);
+                List<tbl_Actividades> Actividades = new List<tbl_Actividades>();
+                var Buscar = ObjActividadRepository.GetAllBy(i => i.IdUsuario == idUsuario).ToList();
+                if (Buscar != null)
+                {
+
+                    Actividades = (from Activity in Buscar.AsEnumerable()
+                                   select new tbl_Actividades
+                                   {
+                                       IdActividad = Activity.IdActividad,
+                                       Descripcion = Activity.Descripcion,
+                                       IdUsuario = idUsuario
+
+                                   }).ToList();
+
+                    return Actividades;
+                }
+                else
+                {
+                    return Actividades;
+                }
+
             }
             catch (Exception)
             {
@@ -42,68 +74,7 @@ namespace Doctus.BM.Actividad
         {
             try
             {
-                Actividad.CrearActividad(objActivity);
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Metodo para registrar los tiempos de una actividad
-        /// </summary>
-        /// <param name="objTiempo"></param>
-        public int CrearTiempo(tbl_Tiempos objTiempo)
-        {
-            try
-            {
-                //validar maximo 8 horas
-                var Sumar = Actividad.ListarTempos(objTiempo.IdActividad);
-                int sum = Sumar.AsEnumerable().Sum(x => x.Tiempo);
-
-                if ((sum + objTiempo.Tiempo) > 8)
-                {
-                    return 0; //Error maximo horas
-                }
-                else {
-                    Actividad.CrearTiempo(objTiempo);
-                    return 1;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// listar los tiempos correspondientes a una actividad
-        /// </summary>
-        /// <param name="idActivity"></param>
-        /// <returns>List<tbl_Tiempos></returns>
-        public List<tbl_Tiempos> ListarTempos(int idActivity)
-        {
-            try
-            {
-                return Actividad.ListarTempos(idActivity);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Metodo para eliminar un tiempo
-        /// </summary>
-        /// <param name="idTiempo"></param>
-        public bool EliminarTiempo(int idTiempo)
-        {
-            try
-            {
-                Actividad.EliminarTiempo(idTiempo);
+                ObjActividadRepository.Create(objActivity);
                 return true;
             }
             catch (Exception)
@@ -120,7 +91,14 @@ namespace Doctus.BM.Actividad
         {
             try
             {
-                Actividad.EliminarActividad(idActivity);
+                //var tiempo = ObjActividadRepository.FindById(idActivity);
+                //foreach (var m in tiempo.tbl_Tiempos)
+                //{
+                //    ObjActividadRepository.Delete(m);
+                //}
+
+                tbl_Actividades eli = ObjActividadRepository.FindById(idActivity);
+                ObjActividadRepository.Delete(eli);
                 return true;
             }
             catch (Exception)
